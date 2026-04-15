@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.business_name }}</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top, rgba(59, 130, 246, 0.18), transparent 32%),
+        linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color: #e2e8f0;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 20px 72px;
+    }
+
+    .hero,
+    .section {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 28px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 40px rgba(2, 6, 23, 0.32);
+    }
+
+    .hero {
+      padding: 72px 28px 36px;
+      margin-bottom: 24px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.14);
+      color: #93c5fd;
+      font-size: 14px;
+      margin-bottom: 18px;
+    }
+
+    h1,
+    h2 {
+      margin: 0;
+      line-height: 1.05;
+    }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 68px);
+      max-width: 860px;
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      font-size: clamp(26px, 4vw, 34px);
+      margin-bottom: 18px;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: #cbd5e1;
+      font-size: 19px;
+      line-height: 1.65;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 28px;
+      padding: 14px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      background: linear-gradient(135deg, #2563eb, #8b5cf6);
+      color: #ffffff;
+      font-weight: 700;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      box-shadow: 0 14px 32px rgba(37, 99, 235, 0.28);
+    }
+
+    .cta:hover {
+      transform: translateY(-1px);
+    }
+
+    .section {
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .benefit-card,
+    details {
+      background: rgba(2, 6, 23, 0.45);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+      border-radius: 22px;
+      padding: 20px;
+    }
+
+    .benefit-index {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.12);
+      color: #6ee7b7;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .benefit-card p,
+    details p {
+      margin: 0;
+      line-height: 1.6;
+      color: #cbd5e1;
+    }
+
+    details + details {
+      margin-top: 12px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      margin-bottom: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .footer {
+      color: #94a3b8;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .benefits {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 56px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">{{ page.niche }}</div>
+      <h1>{{ page.hero_title }}</h1>
+      <p class="lead">{{ page.hero_subtitle }}</p>
+      <a class="cta" href="#lead">{{ page.call_to_action }}</a>
+    </section>
+
+    <section class="section" aria-labelledby="benefits-title">
+      <h2 id="benefits-title">What this draft emphasizes</h2>
+      <div class="benefits">
+        {% for benefit in page.benefits %}
+          <article class="benefit-card">
+            <div class="benefit-index">{{ "%02d" | format(loop.index) }}</div>
+            <p>{{ benefit }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="faq-title" id="lead">
+      <h2 id="faq-title">Questions this draft answers</h2>
+      {% for item in page.faq %}
+        <details>
+          <summary>{{ item.q }}</summary>
+          <p>{{ item.a }}</p>
+        </details>
+      {% endfor %}
+    </section>
+
+    <div class="footer">Draft preview for internal review.</div>
+  </main>
+</body>
+</html>

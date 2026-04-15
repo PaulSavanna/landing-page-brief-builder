@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Landing Brief Builder — FastAPI + Vanilla JS app for draft landing pages with preview, revision history, and safe local storage." />
+  <title>Landing Brief Builder</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">FastAPI · Vanilla JS · Revision-aware workflow</p>
+        <h1>Landing Brief Builder</h1>
+        <p class="subtitle">Turn a short product brief into a draft landing page, open a live preview, update the current draft, and keep revision history.</p>
+      </div>
+      <div class="status-badge" id="apiStatus" aria-live="polite">Connecting…</div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel">
+        <section>
+          <div class="section-title-row">
+            <h2>Page brief</h2>
+            <span class="hint">All fields are required</span>
+          </div>
+
+          <form id="briefForm" novalidate>
+            <div class="form-grid">
+              <label class="field">
+                <span>Business name</span>
+                <input id="business_name" name="business_name" maxlength="120" placeholder="Northstar Ops" required />
+              </label>
+
+              <label class="field">
+                <span>Niche</span>
+                <input id="niche" name="niche" maxlength="120" placeholder="Revenue operations" required />
+              </label>
+
+              <label class="field field-full">
+                <span>Audience</span>
+                <input id="audience" name="audience" maxlength="240" placeholder="RevOps leads at SaaS companies with growing inbound volume" required />
+              </label>
+
+              <label class="field field-full">
+                <span>Offer</span>
+                <input id="offer" name="offer" maxlength="240" placeholder="Qualification assistant for high-volume inbound leads" required />
+              </label>
+
+              <label class="field">
+                <span>Tone</span>
+                <input id="tone" name="tone" maxlength="120" placeholder="Clear and credible" required />
+              </label>
+
+              <label class="field">
+                <span>CTA</span>
+                <input id="call_to_action" name="call_to_action" maxlength="80" placeholder="Book an intro call" required />
+              </label>
+
+              <label class="field field-full">
+                <span>Revision note</span>
+                <input id="change_note" name="change_note" maxlength="140" placeholder="Clarified the audience and tightened the CTA" required />
+              </label>
+            </div>
+
+            <div class="form-actions actions-grid">
+              <button id="generateButton" type="submit">Create draft</button>
+              <button id="updateButton" type="button" class="secondary-button">Update selected draft</button>
+              <p id="formMessage" class="message" aria-live="polite"></p>
+            </div>
+          </form>
+        </section>
+
+        <section class="saved-pages-section">
+          <div class="section-title-row">
+            <h2>Saved pages</h2>
+            <span class="hint" id="pagesCounter">0</span>
+          </div>
+          <div id="pagesList" class="pages-list" aria-live="polite"></div>
+        </section>
+      </aside>
+
+      <main class="panel preview-panel">
+        <div class="section-title-row">
+          <h2>Preview and revisions</h2>
+          <a id="openPreviewLink" class="preview-link hidden" target="_blank" rel="noreferrer">Open in a new tab</a>
+        </div>
+
+        <div id="previewMeta" class="preview-meta">The generated preview and page metadata will appear here.</div>
+        <div id="previewLoading" class="hidden preview-loading">Loading preview…</div>
+        <iframe id="previewFrame" title="Landing page preview" sandbox="allow-same-origin"></iframe>
+
+        <section class="revisions-section">
+          <div class="section-title-row">
+            <h3>Revision history</h3>
+            <span class="hint" id="revisionsCounter">0</span>
+          </div>
+          <div id="revisionsList" class="revisions-list" aria-live="polite"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
